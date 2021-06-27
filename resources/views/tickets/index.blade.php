@@ -28,7 +28,14 @@
                     </div>
                 </div><!-- /.card-header -->
                 <div class="card-body table-responsive">
-
+                    <form action="/exportTickets" method="GET" enctype="multipart/form-data">
+                        @csrf
+                        <button class="btn btn-success">Export All Tickets Data</button>
+                    </form>
+                    <form action="/exportInProgressTickets" method="GET" enctype="multipart/form-data">
+                        @csrf
+                        <button class="btn btn-success">Export In progress Tickets Data</button>
+                    </form>
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>

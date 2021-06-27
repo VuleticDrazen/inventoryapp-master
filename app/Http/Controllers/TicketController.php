@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TicketExport;
 use App\Models\EquipmentCategory;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TicketController extends Controller
 {
@@ -136,5 +138,14 @@ class TicketController extends Controller
     {
         //
     }
+    public function export()
+    {
+        return Excel::download(new TicketExport(), 'tickets.xlsx');
+    }
+    public function exportInProgress()
+    {
+        return Excel::download(new TicketInProgressExport(), 'ticketsInProgress.xlsx');
+    }
+
 
 }

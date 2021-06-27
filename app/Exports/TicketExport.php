@@ -4,13 +4,13 @@
 namespace App\Exports;
 
 
-use App\Models\Equipment;
+use App\Models\Ticket;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class EquipmentExport implements FromCollection
+class TicketExport implements FromCollection
 {
     public function collection()
     {
-        return Equipment::all();
+        return Ticket::all();
     }
 }

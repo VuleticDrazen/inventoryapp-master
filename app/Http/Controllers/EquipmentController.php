@@ -130,4 +130,5 @@ class EquipmentController extends Controller
     }
 
 
+
 }

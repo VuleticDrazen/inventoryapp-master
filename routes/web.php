@@ -47,4 +47,6 @@ Auth::routes();
 
 Route::get('/exportUsers', 'App\Http\Controllers\UserController@export');
 Route::get('/exportEquipment', 'App\Http\Controllers\EquipmentController@export');
+Route::get('/exportTickets', 'App\Http\Controllers\TicketController@export');
+Route::get('/exportInProgressTickets', 'App\Http\Controllers\TicketController@exportInProgress');
 
