@@ -116,6 +116,11 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
+
+        $serial_numbers = $equipment->serial_num();
+        $serial_numbers->delete();
+        $items = $equipment->items();
+        $items->delete();
         $equipment->delete();
         return redirect('/equipment');
     }
@@ -134,6 +139,9 @@ class EquipmentController extends Controller
         return Excel::download(new EquipmentByCategoryExport($request), 'equipment_by_category.xlsx');
     }
 
+    public function getEquipment(){
+        return Equipment::all();
+    }
 
 
 }

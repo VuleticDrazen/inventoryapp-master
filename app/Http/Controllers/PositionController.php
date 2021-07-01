@@ -17,9 +17,14 @@ class PositionController extends Controller
      */
     public function index()
     {
+        $content_header = "Positions list";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Positions', 'link' => '/positions' ],
+        ];
         $positions = Position::all();
         if(Auth::user()->id == 1){
-            return view('positions.index', compact('positions'));
+            return view('positions.index', compact('positions','content_header','breadcrumbs'));
         }else{
             return redirect('/');
         }

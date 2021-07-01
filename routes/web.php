@@ -39,7 +39,6 @@ Route::get('/roles', [App\Http\Controllers\RoleController::class, 'roles'])->mid
 Route::get('/departmentsFill', [App\Http\Controllers\DepartmentController::class, 'departments'])->middleware('auth');
 Route::get('/statuses', [App\Http\Controllers\TicketStatusController::class, 'index'])->middleware('auth');
 Route::get('/serial-numbers-by-equipment/{equipment}', [EquipmentController::class, 'serial_numbers'])->middleware('auth');
-Route::get('/serial-numbers-by-equipment/{equipment}', [EquipmentController::class, 'serial_numbers'])->middleware('auth');
 Route::get('/exportDocuments', 'App\Http\Controllers\DocumentController@export')->middleware('auth');
 Route::get('/export-all-documents', 'App\Http\Controllers\DocumentController@exportAll')->middleware('auth');
 Route::get('/exportUsers/{request}', 'App\Http\Controllers\UserController@export')->middleware('auth');
@@ -49,6 +48,7 @@ Route::get('/exportTickets', 'App\Http\Controllers\TicketController@export')->mi
 Route::get('/exportInProgressTickets', 'App\Http\Controllers\TicketController@exportInProgress')->middleware('auth');
 Route::get('/searchUsers', [App\Http\Controllers\UserController::class, 'getUsers']);
 Route::get('/get-categories', [App\Http\Controllers\EquipmentCategoryController::class, 'categories'])->middleware('auth');
+Route::get('/get-equipment', [App\Http\Controllers\EquipmentController::class, 'getEquipment'])->middleware('auth');
 
 Route::post('/equipment/{equipment}/serial-numbers', [SerialNumberController::class, 'store'])->name('serial_numbers.store')->middleware('auth');
 Route::post('/document-items/{document}', [DocumentItemController::class, 'store'])->middleware('auth');

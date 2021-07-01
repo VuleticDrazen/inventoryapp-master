@@ -37,7 +37,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-header">Opcije menija</li>
+                <li class="nav-header">Menu options</li>
 {{--                <li class="nav-item menu-open">--}}
 {{--                    <a href="#" class="nav-link active">--}}
 {{--                        <i class="nav-icon fas fa-tachometer-alt"></i>--}}
@@ -68,10 +68,10 @@
 {{--                    </ul>--}}
 {{--                </li>--}}
 
-               @if(\Illuminate\Support\Facades\Auth::user()->id == 1)
+               @if(\Illuminate\Support\Facades\Auth::user()->role_id == 1)
                     <li class="nav-item">
                         <a href="/departments" class="nav-link {{ request()->is('departments*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-envelope-open" aria-hidden="true"></i>
+                            <i class="nav-icon fa fa-microchip" aria-hidden="true"></i>
                             <p>
                                 Departments
                             </p>
@@ -79,7 +79,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="/positions" class="nav-link {{ request()->is('positions*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-envelope-open" aria-hidden="true"></i>
+                            <i class="nav-icon fa fa-hat-wizard" aria-hidden="true"></i>
                             <p>
                                 Positions
                             </p>

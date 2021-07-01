@@ -16,9 +16,14 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        $content_header = "Departments list";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Departments', 'link' => '/departments' ],
+            ];
         $departments = Department::all();
-        if(Auth::user()->id == 1){
-            return view('departments.index', compact('departments'));
+        if(Auth::user()->role_id == 1){
+            return view('departments.index', compact('departments','content_header','breadcrumbs'));
         }else{
             return redirect('/');
         }

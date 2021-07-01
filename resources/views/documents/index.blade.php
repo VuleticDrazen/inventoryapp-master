@@ -19,7 +19,7 @@
                         <i class="fas fa-paperclip mr-1"></i>
                         Documents
                     </h3>
-                    @if(\Illuminate\Support\Facades\Auth::user()->id == 1)
+                    @if(\Illuminate\Support\Facades\Auth::user()->role_id == 1)
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
@@ -46,7 +46,7 @@
                             <th>Employee</th>
                             <th>Administrator</th>
                             <th>Date</th>
-                            @if(\Illuminate\Support\Facades\Auth::user()->id == 1)
+                            @if(\Illuminate\Support\Facades\Auth::user()->role_id == 1)
                             <th>Edit</th>
                             <th>Delete</th>
                             @endif
@@ -59,7 +59,7 @@
                                 <td>{{ $doc->user->name }}</td>
                                 <td>{{ $doc->admin->name }}</td>
                                 <td>{{ $doc->date_formated }}</td>
-                                @if(\Illuminate\Support\Facades\Auth::user()->id == 1)
+                                @if(\Illuminate\Support\Facades\Auth::user()->role_id == 1)
                                 <td>
                                     <a href="/documents/{{ $doc->id }}/edit" class="btn btn-primary btn-sm btn-flat">
                                         <i class="fa fa-edit"></i>

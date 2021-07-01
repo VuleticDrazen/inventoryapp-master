@@ -16,10 +16,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        <i class="fas fa-paperclip mr-1"></i>
+                        <i class="fa fa-envelope-open mr-1"></i>
                         Tickets
                     </h3>
-                    @if(\Illuminate\Support\Facades\Auth::user()->id == 4)
+                    @if(\Illuminate\Support\Facades\Auth::user()->role_id == 4)
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
