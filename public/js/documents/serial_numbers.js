@@ -11,7 +11,7 @@ function fillSerialNumbers(serial_number_id = null){
         'type' : 'GET',
         'success': (response) => {
             let serial_numbers = response;
-            let options = '';
+            let options = `<option value="" selected> - select serial number - </option>`;
             serial_numbers.forEach((serial_number) => {
                 let selected = '';
                 if(serial_number_id && serial_number_id == serial_number.id) selected = 'selected';

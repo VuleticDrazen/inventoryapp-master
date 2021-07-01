@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PositionRequest;
 
 class PositionController extends Controller
 {
@@ -14,7 +17,12 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        $positions = Position::all();
+        if(Auth::user()->id == 1){
+            return view('positions.index', compact('positions'));
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -24,7 +32,13 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $content_header = "Add New Position";
+        if(Auth::user()->id == 1){
+            return view('positions.create', compact('departments','content_header'));
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -33,9 +47,15 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PositionRequest $request)
     {
-        //
+        if(Auth::user()->id == 1){
+            Position::query()->create($request->all());
+            return redirect(route('positions.index'));
+        }else{
+            return redirect('/');
+        }
+
     }
 
     /**

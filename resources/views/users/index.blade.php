@@ -6,6 +6,7 @@
     <style>
         .clickable-row{ cursor: pointer; }
     </style>
+
 @endsection
 
 @section('content')
@@ -30,12 +31,6 @@
                     @endif
                 </div><!-- /.card-header -->
                 <div class="card-body table-responsive">
-
-                        <form action="/exportUsers" method="GET" enctype="multipart/form-data">
-                            @csrf
-                            <button class="btn btn-success">Export All Users Data</button>
-                        </form>
-
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
@@ -82,12 +77,19 @@
                 </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
-
         </div>
     </div>
+
+
+    <!-- /.modal for export filters -->
+
+
 
 @endsection
 
 @section('additional_scripts')
     <script src="{{ asset('/js/users/index.js') }}"></script>
+
+
+
 @endsection

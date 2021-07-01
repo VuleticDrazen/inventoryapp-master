@@ -14,9 +14,7 @@
                         Equipment details
                     </h3>
 
-                    <button class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#create_serial_number_modal">
-                        Add Serial Number
-                    </button>
+
 
                 </div><!-- /.card-header -->
 
@@ -94,7 +92,7 @@
     </div>
 
 
-    @include('equipment.create_serial_num')
+
 @endsection
 @section('additional_scripts')
     <script>
@@ -108,12 +106,5 @@
             serialNumberButton.attr('disabled', false);
             }
         }
-
-
-        $('#create_serial_num').on('show.bs.modal', function(e) {
-            let modal = $(this),
-            equipmentId = {{ $equipment->id }};
-            modal.find("#create_serial_number_form").attr("action", `/equipment/${equipmentId}/serial-numbers`);
-        });
     </script>
 @endsection()

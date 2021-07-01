@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DocumentsAllExport;
+use App\Exports\DocumentsExport;
 use App\Http\Requests\DocumentRequest;
 use App\Models\Document;
 use App\Models\DocumentItem;
 use App\Models\Equipment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class DocumentController extends Controller
 {
@@ -118,6 +121,13 @@ class DocumentController extends Controller
     public function destroy(Document $document)
     {
         //
+    }
+
+    public function export(Request $request){
+        return \Maatwebsite\Excel\Facades\Excel::download(new DocumentsExport($request), 'documents_by_user.xlsx');
+    }
+    public function exportAll(){
+        return \Maatwebsite\Excel\Facades\Excel::download(new DocumentsAllExport(), 'documents.xlsx');
     }
 
 

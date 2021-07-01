@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -48,10 +49,6 @@ class User extends Authenticatable implements JWTSubject
         return Position::query()->find($this->position_id)->department_id;
     }
 
-    public function getDepartmentNameAttribute(){
-        return Department::query()->find($this->department_id)->name;
-    }
-
     public function position(){
         return $this->belongsTo(Position::class);
     }
@@ -86,4 +83,5 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-}
+
+   }

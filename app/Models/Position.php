@@ -9,7 +9,12 @@ class Position extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+
+    protected $fillable = [
+        'name',
+        'department_id',
+
+    ];
     protected $hidden = ['created_at', 'updated_at'];
     // protected $appends = ['department_name'];
 

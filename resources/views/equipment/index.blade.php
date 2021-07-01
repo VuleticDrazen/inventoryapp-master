@@ -30,11 +30,15 @@
                         @endif
                 </div><!-- /.card-header -->
                 <div class="card-body table-responsive">
-                    <form action="/exportEquipment" method="GET" enctype="multipart/form-data">
-                        @csrf
-                        <button class="btn btn-success">Export All Equipment Data</button>
-                    </form>
-
+                    <div style="float: left">
+                      <form action="/exportEquipment" method="GET" enctype="multipart/form-data">
+                            @csrf
+                            <button class="btn btn-success">Export All Equipment Data</button>
+                        </form>
+                    </div>
+                    <div class="" style="float: right">
+                        <button class="btn btn-success" id="exportButton">Export data for specified category</button>
+                    </div>
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
@@ -90,8 +94,36 @@
         </div>
     </div>
 
+    <form action="/exportEquipmentByCategory" method="GET" enctype="multipart/form-data">
+        @csrf
+        <div class="modal fade" id="exportModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> Export equipment data by category</h5>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label for="">Equipment Category</label>
+                            <select name="category_id" id="category_id_select" class="form-control">
+                                {{-- AJAX --}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success">Export Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
 @endsection
 
 @section('additional_scripts')
     <script src="{{ asset('/js/equipment/index.js') }}"></script>
+    <script src="{{ asset('/js/equipment/modal.js') }}"></script>
+
 @endsection

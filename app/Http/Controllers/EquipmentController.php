@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EquipmentByCategoryExport;
 use App\Exports\EquipmentExport;
 use App\Exports\UsersExport;
 use App\Http\Requests\EquipmentRequest;
@@ -127,6 +128,10 @@ class EquipmentController extends Controller
     public function export()
     {
         return Excel::download(new EquipmentExport(), 'equipment.xlsx');
+    }
+    public function exportByCategory(Request $request)
+    {
+        return Excel::download(new EquipmentByCategoryExport($request), 'equipment_by_category.xlsx');
     }
 
 

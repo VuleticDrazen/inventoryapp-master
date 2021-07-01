@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -14,7 +16,13 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = Department::all();
+        if(Auth::user()->id == 1){
+            return view('departments.index', compact('departments'));
+        }else{
+            return redirect('/');
+        }
+
     }
 
     /**
@@ -24,7 +32,11 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        if(Auth::user()->id == 1){
+            return view('departments.create');
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -33,9 +45,12 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
+
+            Department::query()->create($request->all());
+            return redirect(route('departments.index'));
+
     }
 
     /**
@@ -46,7 +61,11 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        if(Auth::user()->id == 1){
+            return view('departments.show', compact('departments'));
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -57,7 +76,11 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        if(Auth::user()->id == 1){
+            return view('departments.index', compact('departments'));
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -69,7 +92,11 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        if(Auth::user()->id == 1){
+            return view('departments.index');
+        }else{
+            return redirect('/');
+        }
     }
 
     /**
@@ -80,11 +107,19 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        if(Auth::user()->id == 1){
+            return view('departments.index', compact('departments'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function positions(Department $department){
         return $department->positions;
     }
 
+    public function departments()
+    {
+        return Department::all();
+    }
 }

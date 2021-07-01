@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TicketExport;
+use App\Exports\TicketInProgressExport;
+use App\Http\Requests\TicketRequest;
 use App\Models\EquipmentCategory;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
@@ -24,7 +26,7 @@ class TicketController extends Controller
         $content_header = "Ticket list";
         $breadcrumbs = [
             [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Documents list', 'link' => '/documents' ],
+            [ 'name' => 'Tickets list', 'link' => '/tickets' ],
         ];
         return view('tickets.index', compact(['tickets', 'content_header', 'breadcrumbs']));
 
@@ -53,30 +55,13 @@ class TicketController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
-        $ticket_request_type = $request->ticket_request_type;
-        $ticket_type = $request->ticket_type;
-        if($ticket_type == 1){
-        switch ($ticket_request_type) {
-            case '1':
-                $officer_id = '1';
-                break;
-            case '2':
-                $officer_id = '2';
-                break;
 
-            default:
-                return '/';
-                break;
-        }
-        }else{
-            $officer_id = '3';
-            }
-
-        $request->merge(['user_id' => auth()->id() , 'status_id'=> '1', 'officer_id' => $officer_id]);
+        $request->merge(['user_id' => auth()->id() , 'status_id'=> '1']);
         Ticket::query()->create($request->all());
         return redirect(route('tickets.index'));
+
     }
 
     /**

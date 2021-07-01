@@ -22,7 +22,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-6">
-                                <label for="ticket_type_select">Department:</label>
+                                <label for="ticket_type_select">Ticket type:</label>
                                 <select name="ticket_type" id="ticket_type_select" class="form-control @error('ticket_type') is-invalid @endif">
                                     <option value="" selected>- select a ticket type -</option>
                                     <option value="1">New equipment or office suplies</option>
@@ -37,7 +37,7 @@
 
                             <div class="col-6">
                                 <label for="ticket_request_type_select">Ticket request type:</label>
-                                <select name="ticket_request_type" id="ticket_request_type_select" class="form-control @error('ticket_request_type') is-invalid @endif">
+                                <select name="ticket_request_type" id="ticket_request_type_select" class="form-control @error('ticket_request_type') is-invalid @endif" onchange="fillOfficers()">
                                     <option value="" selected>- select a ticket type -</option>
                                     <option value="1">Equipment request</option>
                                     <option value="2">Office supplies request</option>
@@ -49,6 +49,20 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-6">
+                            <label for="officer_id_select">Officer:</label>
+                            <select name="officer_id" id="officer_id_select" class="form-control @error('officer_id') is-invalid @endif">
+                               {{-- AJAX --}}
+                            </select>
+                            @error('officer_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+
                         <div class="row">
                             <div class="col-6">
                                 <label for="catogory_select">Equipment category:</label>
@@ -99,7 +113,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat mt-4">
+                                <button type="submit"  class="btn btn-primary btn-block btn-flat mt-4" onclick="confirmTicketAdd(event)" id="add_ticket">
                                     SAVE TICKET DETAILS
                                 </button>
                             </div>
@@ -115,5 +129,6 @@
 
 @endsection
 @section('additional_scripts')
+    <script src="{{ asset('js/tickets/create.js') }}"></script>
 
 @endsection

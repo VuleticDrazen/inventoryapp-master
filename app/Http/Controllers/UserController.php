@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Exporter;
@@ -19,14 +20,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
         $users = User::all();
         $content_header = "Employees list";
         $breadcrumbs = [
             [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Equipment list', 'link' => '/equipment' ],
+            [ 'name' => 'Tickets list', 'link' => '/tickets' ],
             [ 'name' => 'Employees list', 'link' => '/users' ],
+
         ];
+
+
 
         return view('users.index', compact(['users', 'content_header', 'breadcrumbs']));
     }
@@ -129,6 +135,20 @@ class UserController extends Controller
     {
         return Excel::download(new UsersExport, 'users.xlsx');
     }
+
+    public function officers(Role $role){
+
+        $officers = User::query()
+            ->where('role_id','=', $role->id)
+            ->get();
+
+        return $officers;
+    }
+    public function getUsers(Request $request){
+        return User::all();
+
+    }
+
 
 
 }

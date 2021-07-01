@@ -19,6 +19,7 @@
                         <i class="fas fa-paperclip mr-1"></i>
                         Tickets
                     </h3>
+                    @if(\Illuminate\Support\Facades\Auth::user()->id == 4)
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
@@ -26,16 +27,21 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
                 </div><!-- /.card-header -->
                 <div class="card-body table-responsive">
+                    <div style="float: left">
                     <form action="/exportTickets" method="GET" enctype="multipart/form-data">
                         @csrf
                         <button class="btn btn-success">Export All Tickets Data</button>
                     </form>
+                    </div>
+                    <div style="float: right">
                     <form action="/exportInProgressTickets" method="GET" enctype="multipart/form-data">
                         @csrf
                         <button class="btn btn-success">Export In progress Tickets Data</button>
                     </form>
+                    </div>
                     <table class="table table-hover table-striped">
                         <thead>
                         <tr>
@@ -49,15 +55,20 @@
                         </thead>
                         <tbody>
                         @foreach($tickets as $t)
+                            @if(auth()->id() == $t->officer_id || auth()->id() == $t->user_id)
                             <tr class="clickable-row" data-href="/tickets/{{ $t->id }}" >
                                 <td>{{ $t->id }}</td>
-                                <td>{{ $t->ticket_request_type }}</td>
+                                @if($t->ticket_request_type == 1)
+                                <td>Equipment request</td>
+                                @else
+                                    <td>Service request</td>
+                                @endif
                                 <td>{{ $t->subject }}</td>
                                 <td>{{ $t->status->name }}</td>
-                                <td>{{ $t->user_id }}</td>
-                                <td>{{ $t->officer_id }}</td>
-
+                                <td>{{ $t->user->name }}</td>
+                                <td>{{ $t->officer->name }}</td>
                             </tr>
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

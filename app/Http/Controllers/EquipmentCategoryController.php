@@ -82,5 +82,8 @@ class EquipmentCategoryController extends Controller
     {
         //
     }
+    public function categories(){
+        return EquipmentCategory::all();
+    }
 
 }

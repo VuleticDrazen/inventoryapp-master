@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page_title', 'Office Manager')
+@section('page_title', 'Office Manager Dashboard')
 
 @section('additional_styles')
     <style>
@@ -11,8 +11,10 @@
 @section('content')
 
     <div class="row">
+        <blockquote class="blockquote text-center">
+            <p class="">{{\Illuminate\Support\Facades\Auth::user()->name}} Dashboard</p>
+        </blockquote>
         <div class="col-12">
-
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
@@ -39,7 +41,7 @@
                                         <th>Ticket request type</th>
                                         <th>Subject</th>
                                         <th>Status</th>
-                                        <th>User role</th>
+                                        <th>User</th>
                                         <th>Admin in charge</th>
                                     </tr>
                                     </thead>
@@ -47,7 +49,7 @@
 
                                     <tr class="clickable-row" data-href="/tickets/{{ $t->id }}" >
                                         <td>{{ $t->id }}</td>
-                                        <td>{{ $t->ticket_request_type }}</td>
+                                        <td>Office supply ticket</td>
                                         <td>{{ $t->subject }}</td>
                                         <td>{{ $t->status->name }}</td>
                                         <td>{{ $t->user->name }}</td>

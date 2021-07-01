@@ -10,8 +10,10 @@
 @section('content')
 
     <div class="row">
+        <blockquote class="blockquote text-center">
+            <p class="">{{\Illuminate\Support\Facades\Auth::user()->name}} Dashboard</p>
+        </blockquote>
         <div class="col-12">
-
             <div class="card mt-4">
                 <div class="card-header">
                     <h3 class="card-title">

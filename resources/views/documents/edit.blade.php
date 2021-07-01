@@ -28,10 +28,7 @@
                                 <select name="user_id" id="user_select" class="form-control @error('user_id') is-invalid @endif">
                                     <option value="">- select an employee -</option>
                                     @foreach($users as $user)
-                                        <option
-                                            value="{{ $user->id }}"
-                                            {{ $user->id == $document->user_id ? 'selected' : '' }}
-                                        >
+                                        <option value="{{ $user->id }}"{{ $user->id == $document->user_id ? 'selected' : '' }}>
                                             {{ $user->name }}
                                         </option>
                                     @endforeach

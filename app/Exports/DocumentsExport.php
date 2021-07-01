@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Exports;
 
-
-use App\Models\Ticket;
+use App\Models\Document;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -12,44 +11,44 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class TicketExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents
+class DocumentsExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings, WithEvents
 {
+
+    private $request;
+
+    public function __construct(Request $request = null)
+    {
+
+        $this->request = $request;
+    }
+    /**
+    * @return \Illuminate\Support\Collection
+    */
     public function collection()
     {
-        return Ticket::all();
+        return collect(Document::getDocuments($this->request));
     }
+
     public function headings(): array
     {
         return [
             '#',
-            'Request type',
-            'Ticket type',
-            'Subject',
-            'Description',
-            'Quantity',
-            'Status',
             'User',
-            'Admin in Charge',
-            'Costs',
-            'Created at'
+            'Admin in charge',
+            'Created at',
+            'Updated at',
+
         ];
     }
 
     public function map($row): array
     {
-
         return[
             $row->id,
-            $row->ticket_request_type,
-            $row->ticket_type,
-            $row->subject,
-            $row->description,
-            $row->quantity,
-            $row->status->name,
             $row->user->name,
-            $row->officer->name,
-            $row->costs,
-            $row->created_at
+            $row->admin->name,
+            $row->created_at,
+            $row->updated_at,
 
         ];
 
@@ -58,10 +57,9 @@ class TicketExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:K1'; // All headers
+                $cellRange = 'A1:E1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
             },
         ];
     }
-
 }

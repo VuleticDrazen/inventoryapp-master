@@ -1,4 +1,3 @@
-
 function fillPositions(position_id = null){
     let department_id = $("#department_select").val();
     if(department_id == ''){
@@ -11,7 +10,7 @@ function fillPositions(position_id = null){
        'type' : 'GET',
        'success': (response) => {
            let positions = response;
-           let options = '';
+           let options = `<option value="" selected>- select position -</option>`;
            positions.forEach((position) => {
                let selected = '';
                if(position_id && position_id == position.id) selected = 'selected';
@@ -32,7 +31,7 @@ function fillRoles(role_id = null){
         'type' : 'GET',
         'success': (response) => {
             let roles = response;
-            let options = '';
+            let options = `<option value="" selected>- select role -</option>`;
             roles.forEach((role) => {
                 let selected = '';
                 if(role_id && role_id == role.id) selected = 'selected';
@@ -41,7 +40,6 @@ function fillRoles(role_id = null){
             $("#role_select").html(options);
         }
     });
-
 
 }
 function confirmUserAdd(event){

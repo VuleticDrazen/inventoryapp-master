@@ -17,7 +17,6 @@ class CreateDocumentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('admin_id')->constrained('users'); // ko je dodao od radnika
-            $table->foreignId('serial_number_id')->nullable()->constrained('serial_numbers')->nullOnDelete();
             $table->timestamp('date')->useCurrent();
             $table->timestamps();
         });

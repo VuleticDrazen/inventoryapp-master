@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Document extends Model
 {
@@ -30,4 +31,13 @@ class Document extends Model
     public function items(){
         return $this->hasMany(DocumentItem::class);
     }
+
+    public static function getDocuments(Request $request = null){
+        return Document::query()
+            ->when($request->user_id, function($query) use($request){
+                $query->where('user_id','=', $request->user_id);
+            })
+            ->get();
+    }
+
 }

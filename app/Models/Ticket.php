@@ -25,6 +25,7 @@ class Ticket extends Model
     const IN_PROGRESS = 2;
     const PROCESSED = 3;
 
+
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
