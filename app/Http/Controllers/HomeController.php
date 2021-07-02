@@ -43,14 +43,14 @@ class HomeController extends Controller
 
             case '2':
                 $tickets = Ticket::query()
-                    ->where('officer_id', '', Auth::user()->id)
+                    ->where('officer_id', '=', Auth::user()->id)
                     ->get();
                 return view('office_manager_dashboard', compact(['tickets']));
                 break;
 
             case '3':
                 $tickets = Ticket::query()
-                    ->where('officer_id', '', Auth::user()->id)
+                    ->where('officer_id', '=', Auth::user()->id)
                     ->get();
                 return view('support_manager_dashboard', compact(['tickets']));
                 break;
@@ -60,13 +60,15 @@ class HomeController extends Controller
                     ->where('user_id' , auth()->id())
                     ->get();
                 $tickets = Ticket::query()
-                    ->where('user_id', '', Auth::user()->id)
+                    ->where('user_id', '=', Auth::user()->id)
                     ->get();
                 return view('user_dashboard', compact(['documents','tickets']));
                 break;
 
             case '5':
-                $tickets = Ticket::query()->open();
+                $tickets = Ticket::query()
+                    ->where('status_id','=','2')
+                    ->get();
                 return view('hr_manager_dashboard', compact(['tickets']));
                 break;
 

@@ -55,7 +55,7 @@
                         </thead>
                         <tbody>
                         @foreach($tickets as $t)
-                            @if(auth()->id() == $t->officer_id || auth()->id() == $t->user_id)
+                            @if(auth()->id() == $t->officer_id || auth()->id() == $t->user_id || \Illuminate\Support\Facades\Auth::user()->role_id == 5)
                             <tr class="clickable-row" data-href="/tickets/{{ $t->id }}" >
                                 <td>{{ $t->id }}</td>
                                 @if($t->ticket_request_type == 1)

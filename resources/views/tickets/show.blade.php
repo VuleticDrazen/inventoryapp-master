@@ -79,10 +79,14 @@
                                     <td>Admin comment:</td>
                                     <td>{{ $ticket->admin_comment}}</td>
                                 </tr>
+                                <tr>
+                                    <td>Delivered at:</td>
+                                    <td>{{ $ticket->delivered_at}}</td>
+                                </tr>
                             </table>
                         </div>
 
-                        @if(\Illuminate\Support\Facades\Auth::user()->id == $ticket->officer_id)
+                        @if(\Illuminate\Support\Facades\Auth::user()->id == $ticket->officer_id && $ticket->status_id == 1)
                         <div class="col-7">
                             <form action="/tickets/{{$ticket->id}}" method="POST">
                                 @csrf
@@ -114,24 +118,49 @@
                                     <div class="col-6">
                                         <button id="approve_button" style="width: 160px; margin-left: 260px" class="btn btn-sm btn-flat btn-primary mt-4" @if($ticket->status_id == 2 || $ticket->status_id == 3) disabled @endif>Odobri</button>
                                     </div>
-                                    </div>
+                                </div>
                             </form>
                         </div>
                         @endif
-                        @if(\Illuminate\Support\Facades\Auth::user()->id == 4 && $ticket->status_id == 2)
+                        @if(\Illuminate\Support\Facades\Auth::user()->id == $ticket->officer_id && $ticket->status_id == 3 && $ticket->delivered_at == null)
                             <div class="col-7">
                                 <form action="/tickets/{{$ticket->id}}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <input type="date" id="expected_delivery_date" name="expected_delivery_date">
-                                    <input type="double" id="costs" name="costs">
-                                    <input type="text" id="admin_comment" name="admin_comment">
-
-                                    <button id="approve_button" class="btn btn-sm btn-flat btn-primary ml-2" @if($ticket->status_id == 2 || $ticket->status_id == 3) disabled @endif>Odobri</button>
+                                    <div class="col-6">
+                                        <label for="delivery_date"> Delivered at</label>
+                                        <input class="form-control" type="date" id="delivered_at" name="delivered_at">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button id="approve_button" style="width: 160px; margin-left: 80px" class="btn btn-sm btn-flat btn-primary mt-4" >Zatvori tiket</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         @endif
+                        @if(\Illuminate\Support\Facades\Auth::user()->role_id == 5 && $ticket->status_id == 2)
+                            <div class="col-6">
+                                <form action="/tickets/{{$ticket->id}}" method="POST">
+                                    @csrf
+                                    @method('PUT')
 
+                                    <div class="col-6">
+                                        <label for="status_id">Odobri/Odbij</label>
+                                        <select class="form-control"   name="status_id" id="status_id">
+                                            <option value="1">Odbij tiket</option>
+                                            <option value="3">Odobri tiket</option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button id="approve_button" style="width: 160px; margin-left: 80px" class="btn btn-sm btn-flat btn-primary mt-4" >Zatvori tiket</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        @endif
                     </div>
 
                 </div><!-- /.card-body -->

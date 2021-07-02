@@ -108,8 +108,15 @@ class TicketController extends Controller
      */
     public function update(Request $request,Ticket $ticket)
     {
+        if(Auth::user()->role_id == 5){
+            $ticket->update($request->only(['status_id']));
 
-        $ticket->update($request->only(['status_id','expected_delivery_date','costs','admin_comment']));
+        }elseif (Auth::user()->id == $ticket->officer_id && $ticket->status_id == 1){
+             $ticket->update($request->only(['status_id','expected_delivery_date','costs','admin_comment']));
+        }else{
+            $ticket->update($request->only(['delivered_at']));
+        }
+
         return redirect('/tickets');
     }
 
