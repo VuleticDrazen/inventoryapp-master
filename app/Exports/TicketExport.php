@@ -31,7 +31,9 @@ class TicketExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             'User',
             'Admin in Charge',
             'Costs',
-            'Created at'
+            'Created at',
+            'Expected delivery date',
+            'Delivered at'
         ];
     }
 
@@ -49,7 +51,9 @@ class TicketExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
             $row->user->name,
             $row->officer->name,
             $row->costs,
-            $row->created_at
+            $row->created_at,
+            $row->expected_delivery_date,
+            $row->delivered_at
 
         ];
 
@@ -58,7 +62,7 @@ class TicketExport implements FromCollection, ShouldAutoSize, WithMapping, WithH
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:K1'; // All headers
+                $cellRange = 'A1:M1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
             },
         ];

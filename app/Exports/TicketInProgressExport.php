@@ -23,10 +23,17 @@ class TicketInProgressExport implements FromCollection, ShouldAutoSize, WithMapp
     {
         return [
             '#',
-            'Category',
-            'Equipment name',
-            'Available quantity',
+            'Request type',
+            'Ticket type',
+            'Subject',
             'Description',
+            'Quantity',
+            'Status',
+            'User',
+            'Admin in Charge',
+            'Costs',
+            'Created at',
+            'Expected delivery date',
 
         ];
     }
@@ -35,10 +42,17 @@ class TicketInProgressExport implements FromCollection, ShouldAutoSize, WithMapp
     {
         return[
             $row->id,
-            $row->category->name,
-            $row->name,
-            $row->available_quantity,
+            $row->ticket_request_type,
+            $row->ticket_type,
+            $row->subject,
             $row->description,
+            $row->quantity,
+            $row->status->name,
+            $row->user->name,
+            $row->officer->name,
+            $row->costs,
+            $row->created_at,
+            $row->expected_delivery_date,
 
         ];
 
@@ -47,7 +61,7 @@ class TicketInProgressExport implements FromCollection, ShouldAutoSize, WithMapp
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:E1'; // All headers
+                $cellRange = 'A1:L1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
             },
         ];
